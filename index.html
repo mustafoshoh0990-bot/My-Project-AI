@@ -29,13 +29,11 @@
 
         /* Боковая панель */
         #sidebar {
-            width: 100%;
-            max-width: 280px;
+            width: 320px;
+            min-width: 320px;
             background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
             color: white;
             border-right: 2px solid #1565c0;
-            transition: transform 0.3s ease-in-out;
-            z-index: 50;
         }
         
         /* Стили для скроллируемых областей */
@@ -201,25 +199,25 @@
 </head>
 <body>
 
-<div id="app-container" class="md:flex">
+<div id="app-container" class="flex">
     
     <!-- Боковая панель -->
-    <div id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 flex flex-col scrollable-area overflow-y-auto z-50">
-        <div class="p-4 flex flex-col flex-grow">
+    <div id="sidebar" class="flex flex-col scrollable-area overflow-y-auto">
+        <div class="p-6 flex flex-col flex-grow">
             <!-- Логотип и заголовок -->
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
                     <img src="Tafo_ai.png" alt="TaFo AI Логотип" class="w-full h-full object-cover">
                 </div>
                 <div> 
-                    <h2 class="text-xl font-bold text-white">TaFo AI</h2>
-                    <p class="text-xs text-white/70">Ваш умный помощник</p>
+                    <h2 class="text-2xl font-bold text-white">TaFo AI</h2>
+                    <p class="text-sm text-white/70">Ваш умный помощник</p>
                 </div>
             </div>
             
             <!-- Кнопка "Новый чат" -->
-            <button onclick="clearChat()" class="w-full text-left py-3 px-4 rounded-xl glass-effect text-blue-700 hover:bg-white/20 transition-all duration-300 mb-6 flex items-center group">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 group-hover:rotate-90 transition-transform duration-300">
+            <button onclick="clearChat()" class="w-full text-left py-4 px-5 rounded-xl glass-effect text-blue-700 hover:bg-white/20 transition-all duration-300 mb-8 flex items-center group text-base font-medium">
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-4 group-hover:rotate-90 transition-transform duration-300">
                     <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
                     <path d="M10 6v8M6 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
@@ -227,21 +225,21 @@
             </button>
             
             <!-- История чатов -->
-            <div class="space-y-2 flex-grow">
-                <p class="text-xs text-white/60 uppercase px-3 mb-3 font-semibold tracking-wide">История чатов</p>
-                <div id="chat-history-list" class="text-sm space-y-2">
+            <div class="space-y-3 flex-grow">
+                <p class="text-sm text-white/60 uppercase px-3 mb-4 font-semibold tracking-wide">История чатов</p>
+                <div id="chat-history-list" class="text-sm space-y-3">
                     <!-- Чаты будут добавляться динамически -->
                 </div>
             </div>
         </div>
         
         <!-- Нижняя часть с брендингом -->
-        <div class="p-4 border-t border-white/20">
+        <div class="p-6 border-t border-white/20">
             <div class="text-center">
-                <div class="text-sm font-semibold text-white mb-1">
+                <div class="text-base font-semibold text-white mb-2">
                     TaFo AI Assistant
                 </div>
-                <div class="text-xs text-white/60">
+                <div class="text-sm text-white/60">
                     от MusTaFo Company AI
                 </div>
                 <div class="text-xs text-white/40 mt-2">
@@ -253,73 +251,52 @@
 
     <!-- Основная область чата -->
     <div id="chat-main-area">
-        
-        <!-- Шапка на мобильных -->
-        <header class="p-4 bg-white border-b-2 border-blue-100 shadow-sm md:hidden flex items-center justify-between z-40">
-            <button onclick="toggleSidebar()" class="p-2 rounded-xl hover:bg-blue-50 text-blue-600 transition-colors duration-200">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </button>
-            <div class="flex items-center">
-                <div class="w-8 h-8 mr-2 bg-blue-500 rounded-lg flex items-center justify-center overflow-hidden">
-                    <img src="tafoai.png" alt="TaFo AI" class="w-full h-full object-cover">
-                </div>
-                <h1 class="text-lg font-bold text-blue-600">TaFo AI</h1>
-            </div>
-            <button onclick="clearChat()" class="p-2 rounded-xl hover:bg-blue-50 text-blue-600 transition-colors duration-200">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
-                    <path d="M10 6v8M6 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </header>
-
         <!-- Область чата и приветственный экран -->
         <div id="chat-body" class="scrollable-area">
             
             <!-- Приветственный экран -->
-            <div id="welcome-screen" class="p-8 text-center flex flex-col items-center justify-center min-h-full">
-                <div class="max-w-2xl w-full">
+            <div id="welcome-screen" class="p-12 text-center flex flex-col items-center justify-center min-h-full">
+                <div class="max-w-4xl w-full">
                     <!-- Главный логотип -->
-                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl animate-pulse overflow-hidden">
+                    <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center shadow-2xl animate-pulse overflow-hidden">
                         <img src="tafoai.png" alt="TaFo AI" class="w-full h-full object-cover">
                     </div>
                     
-                    <h2 class="text-4xl font-bold text-blue-600 mb-3">Добро пожаловать в TaFo AI!</h2>
-                    <p class="text-blue-500 mb-10 text-lg font-medium">от MusTaFo Company AI</p>
+                    <h2 class="text-5xl font-bold text-blue-600 mb-4">Добро пожаловать в TaFo AI!</h2>
+                    <p class="text-blue-500 mb-12 text-xl font-medium">от MusTaFo Company AI</p>
 
-                   <p class="text-xl text-blue-700 mb-12 leading-relaxed">
-    Привет! <strong class="text-blue-1500"> Меня зовут TaFo AI ! </strong> Я умею <strong class="text-blue-400">анализировать картинки</strong> и <strong class="text-blue-600">говорить вслух</strong>. 
-    Чем могу помочь?
-</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-2 group" onclick="userInput.value='Что ты видишь на этой фотографии?'; autoResize(userInput); sendButton.disabled=false; userInput.focus();">
-                            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <p class="text-2xl text-blue-700 mb-16 leading-relaxed max-w-3xl mx-auto">
+                        Привет! <strong class="text-blue-1600"> Меня зовут TaFo AI. </strong> Ваш умный собеседник с возможностями <strong class="text-blue-600">компьютерного зрения</strong> и <strong class="text-blue-600">голосового общения</strong>. 
+                        Готов к диалогу!
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-2 group" onclick="userInput.value='Что ты видишь на этой фотографии?'; autoResize(userInput); sendButton.disabled=false; userInput.focus();">
+                            <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="3" y="4" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
                                     <circle cx="8.5" cy="8.5" r="1.5" stroke="white" stroke-width="2"/>
                                     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" stroke="white" stroke-width="2"/>
                                 </svg>
                             </div>
-                            <h3 class="font-bold text-blue-800 mb-2 text-lg">📸 Анализ изображений</h3>
-                            <p class="text-blue-600">Загружайте фотографии, и я детально опишу, что на них изображено.</p>
+                            <h3 class="font-bold text-blue-800 mb-3 text-xl">📸 Анализ изображений</h3>
+                            <p class="text-blue-600 text-base leading-relaxed">Загружайте фотографии, и я детально опишу, что на них изображено. Поддерживаются все популярные форматы изображений.</p>
                         </div>
                         
-                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-2 group" onclick="userInput.value='Расскажи мне о голосовых возможностях TaFo AI.'; autoResize(userInput); sendButton.disabled=false; userInput.focus();">
-                            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-2 group" onclick="userInput.value='Расскажи мне о голосовых возможностях TaFo AI.'; autoResize(userInput); sendButton.disabled=false; userInput.focus();">
+                            <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" stroke="white" stroke-width="2"/>
                                     <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8" stroke="white" stroke-width="2"/>
                                 </svg>
                             </div>
-                            <h3 class="font-bold text-blue-800 mb-2 text-lg">🗣️ Голосовое общение</h3>
-                            <p class="text-blue-600">Говорите с микрофоном или слушайте мои голосовые ответы.</p>
+                            <h3 class="font-bold text-blue-800 mb-3 text-xl">🗣️ Голосовое общение</h3>
+                            <p class="text-blue-600 text-base leading-relaxed">Говорите с микрофоном или слушайте мои голосовые ответы. Поддержка речевого ввода и синтеза речи.</p>
                         </div>
                     </div>
 
-                    <div class="mt-12 p-4 bg-blue-50 rounded-xl">
-                        <p class="text-blue-600 text-sm">
+                    <div class="mt-16 p-6 bg-blue-50 rounded-2xl max-w-2xl mx-auto">
+                        <p class="text-blue-600 text-base">
                             💡 <strong>Совет:</strong> Начните с простого вопроса или загрузите изображение для анализа!
                         </p>
                     </div>
@@ -327,31 +304,31 @@
             </div>
             
             <!-- Область для сообщений -->
-            <div id="conversation-area" class="hidden flex flex-col gap-0 pb-20">
+            <div id="conversation-area" class="hidden flex flex-col gap-0 pb-32">
                 <!-- Сообщения будут добавляться сюда -->
             </div>
         </div>
 
         <!-- Область ввода сообщения (фиксирована внизу) -->
-        <div id="input-container" class="sticky bottom-0 bg-white/95 backdrop-blur-md pt-6 pb-6 px-4 border-t-2 border-blue-100 flex justify-center flex-col items-center">
+        <div id="input-container" class="sticky bottom-0 bg-white/95 backdrop-blur-md pt-8 pb-8 px-8 border-t-2 border-blue-100 flex justify-center flex-col items-center">
             
             <!-- Область превью изображения -->
-            <div id="image-preview-container" class="mb-4 p-3 bg-blue-50 rounded-2xl hidden max-w-xl w-full border border-blue-200">
+            <div id="image-preview-container" class="mb-6 p-4 bg-blue-50 rounded-2xl hidden max-w-2xl w-full border border-blue-200">
                 <!-- Сюда будет загружаться превью -->
             </div>
 
-            <div class="max-w-xl w-full">
-                <div class="flex items-end space-x-3 bg-white border-2 border-blue-200 rounded-3xl p-3 shadow-2xl glass-effect">
+            <div class="max-w-2xl w-full">
+                <div class="flex items-end space-x-4 bg-white border-2 border-blue-200 rounded-3xl p-4 shadow-2xl glass-effect">
                     
                     <!-- Кнопка для загрузки изображения -->
                     <input type="file" id="image-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
                     <button 
                         onclick="document.getElementById('image-input').click()" 
-                        class="p-3 text-blue-500 rounded-2xl hover:bg-blue-50 transition-all duration-200 group"
+                        class="p-4 text-blue-500 rounded-2xl hover:bg-blue-50 transition-all duration-200 group"
                         title="Прикрепить изображение"
                         id="image-button"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform duration-200">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform duration-200">
                             <rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
                             <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" stroke="currentColor" stroke-width="2"/>
@@ -362,7 +339,7 @@
                         id="user-input"
                         rows="1"
                         placeholder="Напишите сообщение или говорите с TaFo AI..."
-                        class="flex-grow p-2 pl-4 bg-transparent resize-none focus:outline-none max-h-40 overflow-y-auto text-blue-700 placeholder-blue-400"
+                        class="flex-grow p-3 pl-5 bg-transparent resize-none focus:outline-none max-h-40 overflow-y-auto text-blue-700 placeholder-blue-400 text-base"
                         oninput="autoResize(this)"
                         onkeydown="handleKey(event)"
                     ></textarea>
@@ -371,10 +348,10 @@
                     <button 
                         id="voice-button"
                         onclick="startSpeechInput()" 
-                        class="p-3 text-blue-500 rounded-2xl hover:bg-blue-50 transition-all duration-200 group"
+                        class="p-4 text-blue-500 rounded-2xl hover:bg-blue-50 transition-all duration-200 group"
                         title="Голосовой ввод"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform duration-200">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform duration-200">
                             <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" stroke="currentColor" stroke-width="2"/>
                             <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8" stroke="currentColor" stroke-width="2"/>
                         </svg>
@@ -384,11 +361,21 @@
                     <button
                         id="send-button"
                         onclick="sendMessage()"
-                        class="btn-primary p-3 text-white rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group"
+                        class="btn-primary p-4 text-white rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group"
                         disabled
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-1 transition-transform duration-200">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-1 transition-transform duration-200">
                             <path d="M2 12l20-8-8 20-4-7-7-4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-sm text-blue-400 mt-4 text-center">
+                    TaFo AI может допускать ошибки. Проверяйте важную информацию. 🔒 Ваши данные защищены.
+                </p>
+            </div>
+        </div>
+
+    </div>="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>
@@ -1014,20 +1001,7 @@
         }
     }
 
-    // --- УПРАВЛЕНИЕ UI И СИДЕБАРОМ ---
-    
-    function toggleSidebar() {
-        const isHidden = sidebar.classList.contains('-translate-x-full');
-        if (isHidden) {
-            sidebar.classList.remove('-translate-x-full');
-            sidebarOverlay.classList.remove('opacity-0', 'pointer-events-none');
-            sidebarOverlay.classList.add('opacity-50');
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            sidebarOverlay.classList.remove('opacity-50');
-            sidebarOverlay.classList.add('opacity-0', 'pointer-events-none');
-        }
-    }
+    // --- УПРАВЛЕНИЕ UI ---
     
     function clearChat() {
         currentChatId = null;
@@ -1040,10 +1014,6 @@
         autoResize(userInput);
         userInput.focus();
         updateChatHistoryUI();
-        
-        if (!sidebar.classList.contains('-translate-x-full')) {
-            toggleSidebar();
-        }
         
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
@@ -1066,14 +1036,14 @@
         outerDiv.className = 'ai-message-container animate-slide-up';
 
         const innerDiv = document.createElement('div');
-        innerDiv.className = 'ai-message flex items-start space-x-4';
+        innerDiv.className = 'ai-message flex items-start space-x-6';
         innerDiv.innerHTML = `
-            <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 overflow-hidden">
-                <img src="https://via.placeholder.com/40x40/1976d2/ffffff?text=AI" alt="TaFo AI" class="w-full h-full object-cover rounded-full animate-pulse">
+            <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 overflow-hidden">
+                <img src="tafoai.png" alt="TaFo AI" class="w-full h-full object-cover rounded-full animate-pulse">
             </div>
-            <div class="flex-grow min-w-0 flex items-center py-3">
-                <div class="dot-pulse mr-2"></div>
-                <span class="text-blue-500 text-sm font-medium">TaFo AI думает...</span>
+            <div class="flex-grow min-w-0 flex items-center py-4">
+                <div class="dot-pulse mr-3"></div>
+                <span class="text-blue-500 text-base font-medium">TaFo AI думает...</span>
             </div>
         `;
         outerDiv.appendChild(innerDiv);
